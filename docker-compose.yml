@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  web:
+    container_name: django
+    image: ghcr.io/muratcorlu/django-playground
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=publicnet
+        - traefik.http.routers.legacy-web-router.rule=Host(`legacy.triofan.com`)
+        - traefik.http.services.legacy-web.loadbalancer.server.port=8000
+        - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
+        - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
+
+networks:
+  publicnet:
+    external: true
