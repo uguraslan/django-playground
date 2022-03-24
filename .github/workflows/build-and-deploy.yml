@@ -60,5 +60,4 @@ jobs:
       - run: echo "$SWARM_TLSCACERT" > ~/.docker/ca.pem
       - run: echo "$SWARM_TLSCERT" > ~/.docker/cert.pem
       - run: echo "$SWARM_TLSKEY" > ~/.docker/key.pem
-      - run: docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
       - run: docker stack deploy -c docker-compose.yml legacy --with-registry-auth
