@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     container_name: django
-    image: ghcr.io/muratcorlu/django-playground
+    image: ghcr.io/muratcorlu/django-playground:main
     command: python manage.py runserver 0.0.0.0:8000
     deploy:
       replicas: 1
