@@ -49,8 +49,8 @@ jobs:
       name: production
       url: https://legacy.triofan.com
     env:
-      DOCKER_HOST: ${{ secrets.TRIOFAN_DOCKER_HOST }}
-      DOCKER_TLS_VERIFY: ${{ secrets.TRIOFAN_DOCKER_TLS_VERIFY }}
+      DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
+      DOCKER_TLS_VERIFY: 1
       SWARM_TLSCACERT: ${{ secrets.SWARM_TLSCACERT }}
       SWARM_TLSCERT: ${{ secrets.SWARM_TLSCERT }}
       SWARM_TLSKEY: ${{ secrets.SWARM_TLSKEY }}
@@ -60,5 +60,7 @@ jobs:
       - run: echo "$SWARM_TLSCACERT" > ~/.docker/ca.pem
       - run: echo "$SWARM_TLSCERT" > ~/.docker/cert.pem
       - run: echo "$SWARM_TLSKEY" > ~/.docker/key.pem
+      - run: echo "${{ secrets.GITHUB_TOKEN }}"
+      - run: echo "${{ github.actor }}"
       - run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - run: docker stack deploy -c docker-compose.yml legacy --with-registry-auth
