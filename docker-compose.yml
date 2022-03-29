@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: ghcr.io/uguraslan/django-playground:main
+    image: ghcr.io/uguraslan/django-playground:latest
     command: python manage.py runserver 0.0.0.0:8000
     deploy:
       replicas: 1
